@@ -19,7 +19,7 @@ use serde::Serialize;
 mod builder;
 mod errors;
 pub mod issues;
-mod rep;
+pub mod rep;
 mod search;
 mod transitions;
 

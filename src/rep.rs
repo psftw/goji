@@ -215,11 +215,15 @@ pub struct HistoryItem {
     pub to_string: Option<String>,
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Debug, PartialEq)]
 pub struct Project {
     pub id: String,
     pub key: String,
     pub name: String,
+    #[serde(rename = "self")]
+    pub self_link: String,
+    #[serde(rename = "avatarUrls")]
+    pub avatar_urls: BTreeMap<String, String>,
 }
 
 /// represents link relationship between issues
@@ -247,17 +251,25 @@ pub struct LinkType {
     pub self_link: String,
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Debug, PartialEq)]
 pub struct Version {
     pub archived: bool,
+    pub description: String,
     pub id: String,
     pub name: String,
+    pub overdue: bool,
+    #[serde(rename = "projectId")]
+    pub project_id: u64,
     pub released: bool,
+    #[serde(rename = "releaseDate")]
+    pub release_date: Option<String>,
     #[serde(rename = "self")]
     pub self_link: String,
+    #[serde(rename = "userReleaseDate")]
+    pub user_release_date: Option<String>,
 }
 
-#[derive(Deserialize, Debug, Clone)]
+#[derive(Deserialize, Debug, Clone, PartialEq)]
 pub struct User {
     pub active: bool,
     #[serde(rename = "avatarUrls")]
@@ -274,7 +286,7 @@ pub struct User {
     pub timezone: Option<String>,
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Debug, PartialEq)]
 pub struct Status {
     pub description: String,
     #[serde(rename = "iconUrl")]
@@ -285,8 +297,9 @@ pub struct Status {
     pub self_link: String,
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Debug, PartialEq)]
 pub struct Priority {
+    #[serde(rename = "iconUrl")]
     pub icon_url: String,
     pub id: String,
     pub name: String,
@@ -294,7 +307,7 @@ pub struct Priority {
     pub self_link: String,
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Debug, PartialEq)]
 pub struct IssueType {
     pub description: String,
     #[serde(rename = "iconUrl")]
@@ -304,6 +317,8 @@ pub struct IssueType {
     #[serde(rename = "self")]
     pub self_link: String,
     pub subtask: bool,
+    #[serde(rename = "avatarId")]
+    pub avatar_id: u64,
 }
 
 #[derive(Deserialize, Debug)]
